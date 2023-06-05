@@ -95,13 +95,117 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
+      window.addEventListener('error', function(event) {
+        if (event.message.includes('is not a number')) {
+        alert('One of the inputs is not a number!');
+       }
+      });
+      if (!isNaN(firstNum) || !isNaN(secondNum)) {
+         throw new Error('One of the inputs is not a number');
+      }
+
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
+    
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+    // Start your code here
+
+    const tableData = [
+      { Name: 'John', Age: 25, City: 'New York' },
+      { Name: 'Emily', Age: 32, City: 'Los Angeles' },
+      { Name: 'Michael', Age: 28, City: 'Chicago' },
+      { Name: 'Sophia', Age: 30, City: 'San Francisco' },
+    ];
+    function one(){
+      two();
+    }
+    function two(){
+      console.trace();
+    }
+    errorBtns.forEach(button => {
+      button.addEventListener('click', () => {
+        switch (button.textContent) {
+          case 'Console Log':
+            console.log("console log writing to console");
+            break;
+          case 'Console Error':
+            console.error("error");
+            break;
+          case 'Console Count':
+            console.count();
+            break;
+          case 'Console Warn':
+            console.warn('warning');
+           break;
+          case 'Console Assert':
+            console.assert(1+2==3, 'Assertion failed: 1+2=3');
+            console.log('assertion successful');
+            break;
+          case 'Console Clear':
+            console.clear();
+           break;
+          case 'Console Dir':
+            console.dir(errorBtns);
+            break;
+          case 'Console dirxml':
+            console.dirxml(errorBtns);
+            break;
+          case 'Console Group Start':
+            const label = 'math operators'
+            console.group(label);
+            console.log('Inside the group');
+            console.log('+');
+            console.log('-');
+            console.log('/');
+            console.log('*');
+            break;
+          case 'Console Group End':
+            console.groupEnd();
+            break;
+          case 'Console Table':
+            console.table(tableData);
+            break;
+          case 'Start Timer':
+            console.time('Timer');
+            for (var i=0;i<5;i++){
+              let a = i*2;
+              console.log(a);
+            }
+            break;
+          case 'End Timer':
+            console.timeEnd('Timer');
+            break;
+          case 'Console Trace':
+            one();
+            break;
+          case 'Trigger a Global Error':
+            errorFunction();
+            break;
+          default:
+            break;
+        }
+     });
+    });
+    let customError = new Error('Cannot divide by zero');
+    function divide(a, b) {
+      if (b === 0) {
+      throw customError;
+      }
+
+      return a / b;
+    }
+    try {
+      const result = divide(10, 0);
+      console.log('Result:', result);
+    } catch (err) {
+      console.error('An error occurred:', err.message);
+    } finally{
+      console.log('finally',divide(10,1));
+    }
   </script>
 </body>
 
